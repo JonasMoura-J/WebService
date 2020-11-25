@@ -1,19 +1,26 @@
 package com.web.webService.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.webService.entities.User;
+import com.web.webService.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
 	
+	@Autowired
+	private UserService service;
+	
 	@GetMapping
-	public ResponseEntity<User> findAll(){
-		User u = new User(null, "Jonas", "Jonas@gmail.com", "999999", "1234");
-		return ResponseEntity.ok().body(u);
+	public ResponseEntity <List<User>> findAll(){
+		List<User> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
 }
